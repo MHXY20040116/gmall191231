@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gpnu.gmall.manage.mapper.PmsSkuInfoMapper">
+
+    <select id="selectSkuSaleAttrValueListBySpu" resultMap="selectSkuSaleAttrValueListBySpuMap">
+        SELECT psi.id AS psi_id, psi.product_id AS psi_product_id, psi.price AS psi_price, psi.sku_name AS psi_sku_name, psi.weight AS psi_weight, psi.sku_desc AS psi_sku_desc, psi.tm_id AS psi_tm_id, psi.catalog3_id AS psi_catalog3_id, psi.sku_default_img AS psi_sku_default_img,
+               pssav.id AS pssav_id, pssav.sku_id AS pssav_sku_id, pssav.sale_attr_id AS pssav_sale_attr_id, pssav.sale_attr_name AS pssav_sale_attr_name, pssav.sale_attr_value_id AS pssav_sale_attr_value_id, pssav.sale_attr_value_name AS pssav_sale_attr_value_name
+        FROM pms_sku_info psi, pms_sku_sale_attr_value pssav
+        WHERE psi.id = pssav.sku_id AND psi.product_id = #{productId}
+    </select>
+    <resultMap id="selectSkuSaleAttrValueListBySpuMap" type="cn.gpnu.gmall.beans.PmsSkuInfo">
+        <result column="psi_id" property="id"></result>
+        <result column="psi_product_id" property="productId"></result>
+        <result column="psi_price" property="price"></result>
+        <result column="psi_sku_name" property="skuName"></result>
+        <result column="psi_weight" property="weight"></result>
+        <result column="psi_sku_desc" property="skuDesc"></result>
+        <result column="psi_catalog3_id" property="catalog3Id"></result>
+        <result column="psi_sku_default_img" property="skuDefaultImg"></result>
+        <collection property="skuSaleAttrValueList" ofType="cn.gpnu.gmall.beans.PmsSkuSaleAttrValue">
+            <result column="pssav_id" property="id"></result>
+            <result column="pssav_sku_id" property="skuId"></result>
+            <result column="pssav_sale_attr_id" property="saleAttrId"></result>
+            <result column="pssav_sale_attr_name" property="saleAttrName"></result>
+            <result column="pssav_sale_attr_value_id" property="saleAttrValueId"></result>
+            <result column="pssav_sale_attr_value_name" property="saleAttrValueName"></result>
+        </collection>
+    </resultMap>
+
+</mapper>
